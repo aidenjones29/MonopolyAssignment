@@ -1,6 +1,11 @@
-#include<iostream>
+#include <iostream>
+#include "RandomNum.h"
 
-void main()
+int main()
 {
+	int test[10];
+	int seed = 5;
+
+	Random(test, seed);
 	system("Pause");
 }

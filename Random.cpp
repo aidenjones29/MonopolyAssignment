@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ctime>
+
 using namespace std;
 
 // Returns a random number in the range 1 .. 6
