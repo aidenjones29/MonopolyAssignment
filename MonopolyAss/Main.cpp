@@ -3,9 +3,9 @@
 
 int main()
 {
-	int test[10];
 	int seed = 5;
+	int randomNumber[10];
 
-	Random(test, seed);
+	Random(randomNumber, seed);
 	system("Pause");
 }

@@ -2,12 +2,13 @@
 
 void Random(int random[], int seed)
 {
-	srand(4);
-
+	srand(seed);
 	for (int i = 0; i < 10; i++)
 	{
 		cout << RandomGen() << endl;
+		random[i] = RandomGen();
 	}
+
 }
 
 int RandomGen()
