@@ -1,0 +1,3 @@
+﻿  Main.cpp
+d:\ajones45\documents\github\monopolyass\monopolyass\main.cpp(4): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  MonopolyAss.vcxproj -> D:\AJones45\Documents\GitHub\MonopolyAss\x64\Debug\MonopolyAss.exe
