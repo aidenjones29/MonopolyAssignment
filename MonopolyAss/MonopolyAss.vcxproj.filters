@@ -24,9 +24,15 @@
     <ClCompile Include="RandomNum.cpp">
       <Filter>CPP Files</Filter>
     </ClCompile>
+    <ClCompile Include="Classes.cpp">
+      <Filter>CPP Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RandomNum.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
