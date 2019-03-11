@@ -1,48 +1,41 @@
 #include "Classes.h"
 
-class CBase
-{
-public:
-	virtual ~CBase(){};
-	virtual 
-};
-
-class CProperty : CBase
+void CProperty::playerStep()
 {
 
-};
+}
 
-class CGo : CBase
+void CGo::playerStep()
 {
 
-};
+}
 
-class CBonus : CBase
+void CBonus::playerStep()
 {
 
-};
+}
 
-class CPenalty : CBase
+void CPenalty::playerStep()
 {
 
-};
+}
 
-class CFreeParking : CBase
+void CFreeParking::playerStep()
 {
 
-};
+}
 
-class CJail : CBase
+void CJail::playerStep()
 {
 
-};
+}
 
-class CGoToJail : CBase
+void CGoToJail::playerStep()
 {
 
-};
+}
 
-class CAirport : CBase
+void CAirport::playerStep()
 {
 
-};
+}

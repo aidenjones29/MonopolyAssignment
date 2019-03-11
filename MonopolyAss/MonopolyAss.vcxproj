@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{5145B0C0-E02B-467F-8D63-DA74E14CB3FF}</ProjectGuid>
     <RootNamespace>MonopolyAss</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -116,12 +116,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Classes.cpp" />
+    <ClCompile Include="LoadFile.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="RandomNum.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Classes.h" />
-    <ClInclude Include="RandomNum.h" />
+    <ClInclude Include="LoadFile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -21,18 +21,18 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RandomNum.cpp">
+    <ClCompile Include="Classes.cpp">
       <Filter>CPP Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes.cpp">
+    <ClCompile Include="LoadFile.cpp">
       <Filter>CPP Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RandomNum.h">
+    <ClInclude Include="Classes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes.h">
+    <ClInclude Include="LoadFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
