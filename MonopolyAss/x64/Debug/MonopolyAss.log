@@ -1,2 +1,4 @@
-﻿  MonopolyAss.vcxproj -> D:\AJones45\Documents\GitHub\MonopolyAss\x64\Debug\MonopolyAss.exe
+﻿  Main.cpp
+d:\ajones45\documents\github\monopolyass\monopolyass\main.cpp(24): warning C4101: 'randomNumber': unreferenced local variable
+  MonopolyAss.vcxproj -> D:\AJones45\Documents\GitHub\MonopolyAss\x64\Debug\MonopolyAss.exe
   MonopolyAss.vcxproj -> D:\AJones45\Documents\GitHub\MonopolyAss\x64\Debug\MonopolyAss.pdb (Partial PDB)
