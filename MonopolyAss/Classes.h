@@ -4,6 +4,14 @@
 
 using namespace std;
 
+class CPlayer
+{
+public:
+	int balance;
+	string type;
+	int currentSquare;
+};
+
 class CBase
 {
 public:
@@ -11,21 +19,13 @@ public:
 	int type;
 
 	virtual ~CBase() {};
-	virtual void playerStep() = 0;
-};
-
-class CPlayer
-{
-private:
-	int balance;
-	string type;
-	int currentSquare;
+	virtual void playerStep(CPlayer* player) = 0;
 };
 
 class CProperty : public CBase
 {
 public:
-	void playerStep();
+	void playerStep(CPlayer* player);
 	CPlayer* owner;
 	int cost;
 	int rent;
@@ -36,43 +36,43 @@ private:
 class CGo : public CBase
 {
 public:
-	void playerStep();
+	void playerStep(CPlayer* player);
 };
 
 class CBonus : public CBase
 {
 public:
-	void playerStep();
+	void playerStep(CPlayer* player);
 };
 
 class CPenalty : public CBase
 {
 public:
-	void playerStep();
+	void playerStep(CPlayer* player);
 };
 
 class CFreeParking : public CBase
 {
 public:
-	void playerStep();
+	void playerStep(CPlayer* player);
 };
 
 class CJail : public CBase
 {
 public:
-	void playerStep();
+	void playerStep(CPlayer* player);
 };
 
 class CGoToJail : public CBase
 {
 public:
-	void playerStep();
+	void playerStep(CPlayer* player);
 };
 
 class CAirport : public CBase
 {
 public:
-	void playerStep();
+	void playerStep(CPlayer* player);
 	CPlayer* owner;
 	int cost;
 	int rent;

@@ -1,41 +1,41 @@
 #include "Classes.h"
 
-void CProperty::playerStep()
+void CProperty::playerStep(CPlayer* player)
 {
 
 }
 
-void CGo::playerStep()
+void CGo::playerStep(CPlayer* player)
 {
 
 }
 
-void CBonus::playerStep()
+void CBonus::playerStep(CPlayer* player)
 {
 
 }
 
-void CPenalty::playerStep()
+void CPenalty::playerStep(CPlayer* player)
 {
 
 }
 
-void CFreeParking::playerStep()
+void CFreeParking::playerStep(CPlayer* player)
 {
 
 }
 
-void CJail::playerStep()
+void CJail::playerStep(CPlayer* player)
 {
 
 }
 
-void CGoToJail::playerStep()
+void CGoToJail::playerStep(CPlayer* player)
 {
 
 }
 
-void CAirport::playerStep()
+void CAirport::playerStep(CPlayer* player)
 {
 
 }
