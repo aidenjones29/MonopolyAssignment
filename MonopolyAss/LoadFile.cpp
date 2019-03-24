@@ -28,11 +28,11 @@ void loadFile(int& seed, vector<CBase*>& board)
 			getline(infile, group);
 
 			CProperty* property(new CProperty);
-			property->name = fullName + " " + secondName;
-			property->cost = stoi(Cost);
-			property->type = stoi(type);
-			property->rent = stoi(Rent);
-			property->group = stoi(group);
+			property->setName(fullName + " " + secondName);
+			property->setCost(stoi(Cost));
+			property->setType(stoi(type));
+			property->setRent(stoi(Rent));
+			property->setGroup(stoi(group));
 
 			board.push_back(property);
 		}
@@ -40,8 +40,8 @@ void loadFile(int& seed, vector<CBase*>& board)
 		{
 			getline(infile, fullName);
 			CGo* go(new CGo);
-			go->name = fullName;
-			go->type = stoi(type);
+			go->setName(fullName);
+			go->setType(stoi(type));
 
 			board.push_back(go);
 		}
@@ -51,8 +51,8 @@ void loadFile(int& seed, vector<CBase*>& board)
 			getline(infile, secondName);
 
 			CAirport* airport(new CAirport);
-			airport->name = fullName + " " + secondName;
-			airport->type = stoi(type);
+			airport->setName(fullName + " " + secondName);
+			airport->setType(stoi(type));
 
 			board.push_back(airport);
 		}
@@ -61,8 +61,8 @@ void loadFile(int& seed, vector<CBase*>& board)
 			getline(infile, fullName);
 
 			CBonus* Bonus(new CBonus);
-			Bonus->name = fullName;
-			Bonus->type = stoi(type);
+			Bonus->setName(fullName);
+			Bonus->setType(stoi(type));
 
 			board.push_back(Bonus);
 		}
@@ -71,8 +71,8 @@ void loadFile(int& seed, vector<CBase*>& board)
 			getline(infile, fullName);
 
 			CPenalty* Penalty(new CPenalty);
-			Penalty->name = fullName;
-			Penalty->type = stoi(type);
+			Penalty->setName(fullName);
+			Penalty->setType(stoi(type));
 
 			board.push_back(Penalty);
 		}
@@ -81,8 +81,8 @@ void loadFile(int& seed, vector<CBase*>& board)
 			getline(infile, fullName);
 
 			CJail* Jail(new CJail);
-			Jail->name = fullName;
-			Jail->type = stoi(type);
+			Jail->setName(fullName);
+			Jail->setType(stoi(type));
 
 			board.push_back(Jail);
 		}
@@ -91,8 +91,8 @@ void loadFile(int& seed, vector<CBase*>& board)
 			getline(infile, fullName);
 
 			CGoToJail* goToJail(new CGoToJail);
-			goToJail->name = fullName;
-			goToJail->type = stoi(type);
+			goToJail->setName(fullName);
+			goToJail->setType(stoi(type));
 
 			board.push_back(goToJail);
 		}
@@ -101,8 +101,8 @@ void loadFile(int& seed, vector<CBase*>& board)
 			getline(infile, fullName);
 
 			CFreeParking* freeParking(new CFreeParking);
-			freeParking->name = fullName;
-			freeParking->type = stoi(type);
+			freeParking->setName(fullName);
+			freeParking->setType(stoi(type));
 
 			board.push_back(freeParking);
 		}

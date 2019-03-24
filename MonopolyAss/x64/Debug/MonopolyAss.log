@@ -1,3 +1,4 @@
-﻿  Main.cpp
+﻿  Classes.cpp
+d:\ajones45\documents\github\monopolyass\monopolyass\classes.h(7): warning C4309: 'initializing': truncation of constant value
   MonopolyAss.vcxproj -> D:\AJones45\Documents\GitHub\MonopolyAss\x64\Debug\MonopolyAss.exe
   MonopolyAss.vcxproj -> D:\AJones45\Documents\GitHub\MonopolyAss\x64\Debug\MonopolyAss.pdb (Partial PDB)

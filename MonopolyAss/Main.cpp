@@ -13,9 +13,6 @@ const int mapSize = 26;
 
 enum character {EDogPlayer, ECarPlayer};
 
-int RandomGen();
-//void loadFile(int& seed, vector<CBase*>& board);
-
 int main()
 {
 
@@ -29,32 +26,37 @@ int main()
 
 	CPlayer* currentPlayersTurn = dog;
 
-	dog->balance = 1500; dog->currentSquare = 0; dog->type = "Dog";
-	car->balance = 1500; car->currentSquare = 0; car->type = "Car";
+	dog->balance = 1500; dog->currentSquare = 0; dog->PlayerName = "Dog";
+	car->balance = 1500; car->currentSquare = 0; car->PlayerName = "Car";
 
 	loadFile(seed, Board);
 	srand(seed);
 
 	cout << "Welcome to Monopoly \n \n";
 
-	for (int gameRound = 0; gameRound <= numRounds; gameRound++)
+	for (int gameRound = 0; gameRound < numRounds; gameRound++)
 	{
+		cout << endl;
 		for (int playerCount = 0; playerCount < numPlayers; playerCount++)
 		{
 			diceRoll = RandomGen();
 
-			cout << currentPlayersTurn->type << " rolls " << diceRoll << endl;
+			cout << currentPlayersTurn->PlayerName << " rolls " << diceRoll << endl;
 
 			currentPlayersTurn->currentSquare += diceRoll;
 
 			if (currentPlayersTurn->currentSquare >= mapSize)
 			{
 				currentPlayersTurn->currentSquare -= mapSize;
+				currentPlayersTurn->balance += 200;
+				cout << currentPlayersTurn->PlayerName << " passes GO and collects " << POUND << "200" << endl;
 			}
 
-			cout << currentPlayersTurn->type << " lands on " << Board[currentPlayersTurn->currentSquare]->name << endl;
+			cout << currentPlayersTurn->PlayerName << " lands on " << Board[currentPlayersTurn->currentSquare]->getName() << endl;
 
 			Board[currentPlayersTurn->currentSquare]->playerStep(currentPlayersTurn);
+
+			cout << currentPlayersTurn->PlayerName << " has " << POUND << currentPlayersTurn->balance <<endl;
 
 			if (currentPlayersTurn == dog)
 			{
@@ -68,9 +70,4 @@ int main()
 	}
 
 	system("Pause");
-}
-
-int RandomGen()
-{
-	return static_cast<int>(static_cast<double> (rand()) / (RAND_MAX + 1) * 6.0f + 1);
 }
