@@ -18,13 +18,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Classes.cpp">
       <Filter>CPP Files</Filter>
     </ClCompile>
     <ClCompile Include="LoadFile.cpp">
+      <Filter>CPP Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
       <Filter>CPP Files</Filter>
     </ClCompile>
   </ItemGroup>
