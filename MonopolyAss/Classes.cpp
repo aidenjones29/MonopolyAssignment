@@ -26,6 +26,11 @@ void CProperty::playerStep(CPlayer* player)
 			player->balance -= CProperty::cost;
 			CProperty::owner = player;
 			cout << player->PlayerName << " buys " << CProperty::name << " for " << POUND <<CProperty::cost << endl;
+
+			CProperty temp = new CProperty;
+			temp.cost = CProperty::cost; temp.group = CProperty::group; temp.name = CProperty::name; temp.owner = CProperty::owner; temp.rent = CProperty::rent;
+
+			player->ownedProperties.push_back(temp);
 		}
 	}
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <sstream>
+#include <vector>
+#include <deque>
 
 using namespace std;
 
@@ -10,6 +12,7 @@ class CPlayer
 {
 public:
 	string PlayerName;
+	vector<CProperty*> ownedProperties;
 	int currentSquare;
 	int balance;
 };

@@ -30,7 +30,7 @@ int main()
 	loadFile(seed, Board);
 	srand(seed);
 
-	cout << "Welcome to Monopoly \n \n";
+	cout <<"Welcome to Monopoly \n" << "By Aiden Jones" << endl;
 
 	for (int gameRound = 0; gameRound < numRounds; gameRound++)
 	{
