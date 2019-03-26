@@ -1,12 +1,20 @@
 #pragma once
 #include <iostream>
-#include <sstream>
+#include <iostream>
+#include <fstream>
 #include <vector>
+#include <sstream>
 #include <deque>
+#include "LoadFile.h"
 
 using namespace std;
 
 const char POUND = 156;
+const int numRounds = 20;
+const int numPlayers = 2;
+const int mapSize = 26;
+
+enum character { EDogPlayer, ECarPlayer };
 
 class CPlayer
 {
@@ -112,6 +120,11 @@ protected:
 	CPlayer* owner;
 	int cost = 200;
 	int rent = 10;
+};
+
+class CMonopolyManager
+{
+	void startGame();
 };
 
 int RandomGen();
