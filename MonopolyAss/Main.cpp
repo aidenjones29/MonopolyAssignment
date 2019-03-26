@@ -10,6 +10,7 @@ enum character {EDogPlayer, ECarPlayer};
 
 int main()
 {
+<<<<<<< HEAD
 	CMonopolyManager test;
 
 	//vector<CBase*> Board;
@@ -62,6 +63,61 @@ int main()
 	//		}
 	//	}
 	//}
+=======
+
+	vector<CBase*> Board;
+
+	int seed;
+	int diceRoll = NULL;
+
+	CPlayer* dog(new CPlayer);
+	CPlayer* car(new CPlayer);
+
+	CPlayer* currentPlayersTurn = dog;
+
+	dog->balance = 1500; dog->currentSquare = 0; dog->PlayerName = "Dog";
+	car->balance = 1500; car->currentSquare = 0; car->PlayerName = "Car";
+
+	loadFile(seed, Board);
+	srand(seed);
+
+	cout << "Welcome to Monopoly \n \n";
+
+	for (int gameRound = 0; gameRound < numRounds; gameRound++)
+	{
+		cout << endl;
+		for (int playerCount = 0; playerCount < numPlayers; playerCount++)
+		{
+			diceRoll = RandomGen();
+
+			cout << currentPlayersTurn->PlayerName << " rolls " << diceRoll << endl;
+
+			currentPlayersTurn->currentSquare += diceRoll;
+
+			if (currentPlayersTurn->currentSquare >= mapSize)
+			{
+				currentPlayersTurn->currentSquare -= mapSize;
+				currentPlayersTurn->balance += 200;
+				cout << currentPlayersTurn->PlayerName << " passes GO and collects " << POUND << "200" << endl;
+			}
+
+			cout << currentPlayersTurn->PlayerName << " lands on " << Board[currentPlayersTurn->currentSquare]->getName() << endl;
+
+			Board[currentPlayersTurn->currentSquare]->playerStep(currentPlayersTurn);
+
+			cout << currentPlayersTurn->PlayerName << " has " << POUND << currentPlayersTurn->balance <<endl;
+
+			if (currentPlayersTurn == dog)
+			{
+				currentPlayersTurn = car;
+			}
+			else
+			{
+				currentPlayersTurn = dog;
+			}
+		}
+	}
+>>>>>>> parent of 0ec6f29... zsc
 
 	system("Pause");
 }
