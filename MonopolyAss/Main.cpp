@@ -17,17 +17,15 @@ int main()
 {
 
 	vector<CBase*> Board;
-
-	int seed;
-	int diceRoll = NULL;
-
-	CPlayer* dog(new CPlayer);
 	CPlayer* car(new CPlayer);
-
+	CPlayer* dog(new CPlayer);
 	CPlayer* currentPlayersTurn = dog;
 
 	dog->balance = 1500; dog->currentSquare = 0; dog->PlayerName = "Dog";
 	car->balance = 1500; car->currentSquare = 0; car->PlayerName = "Car";
+
+	int seed;
+	int diceRoll = NULL;
 
 	loadFile(seed, Board);
 	srand(seed);
