@@ -3,8 +3,10 @@
 #include <fstream>
 #include <vector>
 #include <sstream>
-#include "Classes.h"
+#include <deque>
 
 using namespace std;
+
+class CBase;
 
 void loadFile(int& seed, vector<CBase*>& board);

@@ -1,11 +1,10 @@
 #pragma once
 #include <iostream>
-#include <iostream>
 #include <fstream>
 #include <vector>
 #include <sstream>
 #include <deque>
-#include "LoadFile.h"
+#include <algorithm>
 
 using namespace std;
 
@@ -15,6 +14,8 @@ const int numPlayers = 2;
 const int mapSize = 26;
 
 enum character { EDogPlayer, ECarPlayer };
+
+class CProperty;
 
 class CPlayer
 {
@@ -58,6 +59,8 @@ public:
 	void setRent(int newRent) { rent = newRent; }
 	void setGroup(int newGroup) { group = newGroup; }
 
+	bool streetOwned;
+	int numProperties;
 protected:
 	CPlayer* owner;
 	int cost;
@@ -122,9 +125,12 @@ protected:
 	int rent = 10;
 };
 
-class CMonopolyManager
+class monopolyManager
 {
-	void startGame();
+public:
+	void playGame();
 };
 
 int RandomGen();
+
+bool ComparePrice(CProperty*& lhs, CProperty*& rhs);

@@ -1,4 +1,5 @@
 #include "LoadFile.h"
+#include "Classes.h"
 
 void loadFile(int& seed, vector<CBase*>& board)
 {
@@ -33,6 +34,13 @@ void loadFile(int& seed, vector<CBase*>& board)
 			property->setType(stoi(type));
 			property->setRent(stoi(Rent));
 			property->setGroup(stoi(group));
+			property->streetOwned = false;
+			property->numProperties = 2;
+
+			if (stoi(Rent) == 45 || stoi(Rent) == 25)
+			{
+				property->numProperties = 3;
+			}
 
 			board.push_back(property);
 		}
