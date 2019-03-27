@@ -36,6 +36,7 @@ void loadFile(int& seed, vector<CBase*>& board)
 			property->setGroup(stoi(group));
 			property->streetOwned = false;
 			property->numProperties = 2;
+			property->mortgaged = false;
 
 			if (stoi(Rent) == 45 || stoi(Rent) == 25)
 			{

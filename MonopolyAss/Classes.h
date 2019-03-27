@@ -22,6 +22,7 @@ class CPlayer
 public:
 	string PlayerName;
 	vector<CProperty*> ownedProperties;
+	int numMortgagedProperties;
 	int currentSquare;
 	int balance;
 };
@@ -30,7 +31,7 @@ class CBase
 {
 public:
 	virtual ~CBase() {};
-	virtual void playerStep(CPlayer* player) = 0;
+	virtual void playerStep(CPlayer* player, vector<CBase*>& Board) = 0;
 
 	string getName() { return name; }
 	int getType() { return type; }
@@ -47,7 +48,7 @@ protected:
 class CProperty : public CBase
 {
 public:
-	void playerStep(CPlayer* player);
+	void playerStep(CPlayer* player, vector<CBase*>& Board);
 
 	CPlayer* getOwner() { return owner; }
 	int getCost() { return cost; }
@@ -60,6 +61,7 @@ public:
 	void setGroup(int newGroup) { group = newGroup; }
 
 	bool streetOwned;
+	bool mortgaged;
 	int numProperties;
 protected:
 	CPlayer* owner;
@@ -71,45 +73,45 @@ protected:
 class CGo : public CBase
 {
 public:
-	void playerStep(CPlayer* player);
+	void playerStep(CPlayer* player, vector<CBase*>& Board);
 };
 
 class CBonus : public CBase
 {
 public:
 	int bonus;
-	void playerStep(CPlayer* player);
+	void playerStep(CPlayer* player, vector<CBase*>& Board);
 };
 
 class CPenalty : public CBase
 {
 public:
 	int penalty;
-	void playerStep(CPlayer* player);
+	void playerStep(CPlayer* player, vector<CBase*>& Board);
 };
 
 class CFreeParking : public CBase
 {
 public:
-	void playerStep(CPlayer* player);
+	void playerStep(CPlayer* player, vector<CBase*>& Board);
 };
 
 class CJail : public CBase
 {
 public:
-	void playerStep(CPlayer* player);
+	void playerStep(CPlayer* player, vector<CBase*>& Board);
 };
 
 class CGoToJail : public CBase
 {
 public:
-	void playerStep(CPlayer* player);
+	void playerStep(CPlayer* player, vector<CBase*>& Board);
 };
 
 class CAirport : public CBase
 {
 public:
-	void playerStep(CPlayer* player);
+	void playerStep(CPlayer* player, vector<CBase*>& Board);
 
 	CPlayer* getOwner() { return owner; }
 	int getCost() { return cost; }
@@ -132,5 +134,7 @@ public:
 };
 
 int RandomGen();
+
+void mortgage(CPlayer*& currentPlayer, bool& gameLost, vector<CBase*>& Board);
 
 bool ComparePrice(CProperty*& lhs, CProperty*& rhs);
