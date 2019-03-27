@@ -8,33 +8,32 @@
 
 using namespace std;
 
-const char POUND = 156;
-const int numRounds = 20;
+const char POUND = 156; //Pound char for output text
+const int numRounds = 200;
 const int numPlayers = 2;
 const int mapSize = 26;
 
 enum character { EDogPlayer, ECarPlayer };
 
-class CProperty;
+class CProperty; //Forwards decleration for use in CPlayer class.
 
-class CPlayer
+class CPlayer //The game piece class.
 {
 public:
 	string PlayerName;
-	vector<CProperty*> ownedProperties;
-	int numMortgagedProperties;
-	int currentSquare;
-	int balance;
+	vector<CProperty*> ownedProperties; //Vector of properties in order of cost for mortgaging.
+	int currentSquare; //Current board square.
+	int balance; //Main wallet balance for the player.
 };
 
-class CBase
+class CBase //The main base for classes on the games map/board.
 {
 public:
 	virtual ~CBase() {};
 	virtual void playerStep(CPlayer* player, vector<CBase*>& Board) = 0;
 
-	string getName() { return name; }
-	int getType() { return type; }
+	string getName() { return name; } //Gets the name of the tile.
+	int getType() { return type; } //Gets the int value of tile type.
 
 	void setName(string newName) { name = newName; }
 	void setType(int newType) { type = newType; }
@@ -61,8 +60,8 @@ public:
 	void setGroup(int newGroup) { group = newGroup; }
 
 	bool streetOwned;
-	bool mortgaged;
-	int numProperties;
+	bool mortgaged; //Bool to check if the property is mortgaged.
+	int numProperties; //Properties in the street for 2/3 house streets.
 protected:
 	CPlayer* owner;
 	int cost;
@@ -133,8 +132,8 @@ public:
 	void playGame();
 };
 
-int RandomGen();
+int RandomGen(); //seeded random number generator.
 
-void mortgage(CPlayer*& currentPlayer, bool& gameLost, vector<CBase*>& Board);
+void mortgage(CPlayer*& currentPlayer, bool& gameLost, vector<CBase*>& Board); //Checks the players mortgages and checks if the player can rebuy.
 
-bool ComparePrice(CProperty*& lhs, CProperty*& rhs);
+bool ComparePrice(CProperty*& lhs, CProperty*& rhs); //Sorting the owned property vector for each player.
