@@ -5,17 +5,24 @@
 #include <sstream>
 #include <deque>
 #include <algorithm>
+#include <memory>
 
 using namespace std;
 
+
 const char POUND = 156; //Pound char for output text
-const int numRounds = 200;
+const int numRounds = 20;
 const int numPlayers = 2;
 const int mapSize = 26;
 
 enum character { EDogPlayer, ECarPlayer };
 
 class CProperty; //Forwards decleration for use in CPlayer class.
+class CBase;
+class CPlayer;
+
+typedef vector<unique_ptr<CBase>> board;
+typedef unique_ptr<CPlayer> Player;
 
 class CPlayer //The game piece class.
 {
@@ -30,7 +37,7 @@ class CBase //The main base for classes on the games map/board.
 {
 public:
 	virtual ~CBase() {};
-	virtual void playerStep(CPlayer* player, vector<CBase*>& Board) = 0;
+	virtual void playerStep(Player& player, board& Board) = 0;
 
 	string getName() { return name; } //Gets the name of the tile.
 	int getType() { return type; } //Gets the int value of tile type.
@@ -44,10 +51,11 @@ protected:
 
 };
 
+
 class CProperty : public CBase
 {
 public:
-	void playerStep(CPlayer* player, vector<CBase*>& Board);
+	void playerStep(Player& player, board& Board);
 
 	CPlayer* getOwner() { return owner; }
 	int getCost() { return cost; }
@@ -72,45 +80,45 @@ protected:
 class CGo : public CBase
 {
 public:
-	void playerStep(CPlayer* player, vector<CBase*>& Board);
+	void playerStep(Player& player, board& Board);
 };
 
 class CBonus : public CBase
 {
 public:
 	int bonus;
-	void playerStep(CPlayer* player, vector<CBase*>& Board);
+	void playerStep(Player& player, board& Board);
 };
 
 class CPenalty : public CBase
 {
 public:
 	int penalty;
-	void playerStep(CPlayer* player, vector<CBase*>& Board);
+	void playerStep(Player& player, board& Board);
 };
 
 class CFreeParking : public CBase
 {
 public:
-	void playerStep(CPlayer* player, vector<CBase*>& Board);
+	void playerStep(Player& player, board& Board);
 };
 
 class CJail : public CBase
 {
 public:
-	void playerStep(CPlayer* player, vector<CBase*>& Board);
+	void playerStep(Player& player, board& Board);
 };
 
 class CGoToJail : public CBase
 {
 public:
-	void playerStep(CPlayer* player, vector<CBase*>& Board);
+	void playerStep(Player& player, board& Board);
 };
 
 class CAirport : public CBase
 {
 public:
-	void playerStep(CPlayer* player, vector<CBase*>& Board);
+	void playerStep(Player& player, board& Board);
 
 	CPlayer* getOwner() { return owner; }
 	int getCost() { return cost; }
@@ -134,6 +142,6 @@ public:
 
 int RandomGen(); //seeded random number generator.
 
-void mortgage(CPlayer*& currentPlayer, bool& gameLost, vector<CBase*>& Board); //Checks the players mortgages and checks if the player can rebuy.
+void mortgage(unique_ptr<CPlayer>& currentPlayer, bool& gameLost, board& Board); //Checks the players mortgages and checks if the player can rebuy.
 
 bool ComparePrice(CProperty*& lhs, CProperty*& rhs); //Sorting the owned property vector for each player.

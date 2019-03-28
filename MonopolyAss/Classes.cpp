@@ -8,15 +8,15 @@ const string BonusNames[6]{ "Find some money. Player gains ", "Win competition. 
 //money value of bonus and penalty changes.
 const int SpecialValues[6]{ 20, 50, 100, 150, 200, 300 };
 
-void CProperty::playerStep(CPlayer* player, vector<CBase*>& Board)
+void CProperty::playerStep(Player& player, board& Board)
 {
 	if (CProperty::owner != NULL) //checks to make sure property IS owned to charge rent.
 	{
 		//Gets the board square as a Cproperty to allow for property checks.
 		CProperty* temp = new CProperty;
-		temp = dynamic_cast<CProperty*>(Board[player->currentSquare]);
+		temp = static_cast<CProperty*>(Board[player->currentSquare].get());
 
-			if (CProperty::owner != player) //Makes sure the player doesnt own the current square.
+			if (CProperty::owner != player.get()) //Makes sure the player doesnt own the current square.
 			{
 				if (temp->mortgaged != true)
 				{
@@ -41,7 +41,7 @@ void CProperty::playerStep(CPlayer* player, vector<CBase*>& Board)
 		{
 			//Takes the cost of the property from the player and sets the player as the owner.
 			player->balance -= CProperty::cost;
-			CProperty::owner = player;
+			CProperty::owner = player.get();
 			cout << player->PlayerName << " buys " << CProperty::name << " for " << POUND <<CProperty::cost << endl;
 
 			//Creation of a temp value of the boards property and adds it to the players owned properties vector.
@@ -55,9 +55,9 @@ void CProperty::playerStep(CPlayer* player, vector<CBase*>& Board)
 	}
 }
 
-void CAirport::playerStep(CPlayer* player, vector<CBase*>& Board)
+void CAirport::playerStep(Player& player, board& Board)
 {
-	if (CAirport::owner != NULL && CAirport::owner != player) //If property IS owned but not current player
+	if (CAirport::owner != NULL && CAirport::owner != player.get()) //If property IS owned but not current player
 	{
 		//Charges the player the service fee and gives it to the owner.
 		player->balance -= 10;
@@ -70,23 +70,23 @@ void CAirport::playerStep(CPlayer* player, vector<CBase*>& Board)
 		{
 			//Charges the player for the building and sets the owner to the tile.
 			player->balance -= 200;
-			CAirport::owner = player;
+			CAirport::owner = player.get();
 			cout << player->PlayerName << " buys " << CAirport::name << " for " << POUND << "200" << endl;
 		}
 	}
 }
 
-void CFreeParking::playerStep(CPlayer* player, vector<CBase*>& Board)
+void CFreeParking::playerStep(Player& player, board& Board)
 {
 	cout << player->PlayerName << " is resting" << endl; //If the player lands on the free parking square they just rest.
 }
 
-void CJail::playerStep(CPlayer* player, vector<CBase*>& Board)
+void CJail::playerStep(Player& player, board& Board)
 {
 	cout << player->PlayerName << " is just visiting" << endl;
 }
 
-void CGoToJail::playerStep(CPlayer* player, vector<CBase*>& Board)
+void CGoToJail::playerStep(Player& player, board& Board)
 {
 	player->currentSquare = 6; //Sets the player to the current jail square.
 	player->balance -= 50;     //Charges the player the #50 to get out of jail.
@@ -95,12 +95,12 @@ void CGoToJail::playerStep(CPlayer* player, vector<CBase*>& Board)
 	cout << player->PlayerName << " pays "<< POUND << "50" << endl;
 }
 
-void CGo::playerStep(CPlayer* player, vector<CBase*>& Board)
+void CGo::playerStep(Player& player, board& Board)
 {
 	//Nothing happens when the player lands on go.
 }
 
-void CBonus::playerStep(CPlayer* player, vector<CBase*>& Board)
+void CBonus::playerStep(Player& player, board& Board)
 {
 	CBonus::bonus = RandomGen(); //Gets the next seeded random number for a bonus selection.
 	CBonus::bonus -= 1;          //Minus' one to account for the array value.
@@ -110,7 +110,7 @@ void CBonus::playerStep(CPlayer* player, vector<CBase*>& Board)
 	player->balance += SpecialValues[bonus]; //Gives the player the bonus.
 }
 
-void CPenalty::playerStep(CPlayer* player, vector<CBase*>& Board)
+void CPenalty::playerStep(Player& player, board& Board)
 {
 	CPenalty::penalty = RandomGen(); //Gets the next seeded random number for a penalty selection.
 	CPenalty::penalty -= 1; //Minus' one to account for the array value.
@@ -123,7 +123,7 @@ void CPenalty::playerStep(CPlayer* player, vector<CBase*>& Board)
 //****************************************************** Main game ******************************************************//
 void monopolyManager::playGame()
 {
-	vector<CBase*> Board; //The main games map.
+	board Board; //The main games map.
 
 	int seed;             //Place holder for the seed from file.
 	int diceRoll = NULL;  //Holder for the random number gen for each roll.
@@ -132,11 +132,13 @@ void monopolyManager::playGame()
 	bool gameLost = false; //Check for game being lost when a player goes bankrupt.
 
 	//***** Main game characters *****//
-	CPlayer* dog(new CPlayer);
-	CPlayer* car(new CPlayer);
+	Player dog(new CPlayer);
+	Player car(new CPlayer);
 
 	//turn pointer for current turn.
-	CPlayer* currentPlayersTurn = dog;
+	Player currentPlayersTurn;
+
+	currentPlayersTurn.reset(dog.get());
 
 	//Initial setup of the players classes.
 	dog->balance = 1500; dog->currentSquare = 0; dog->PlayerName = "Dog";
@@ -178,20 +180,20 @@ void monopolyManager::playGame()
 				if (Board[currentPlayersTurn->currentSquare]->getType() == 1) //Check to see the current square being a property
 				{
 					CProperty* temp = new CProperty; //Holds a temp value of the current players square as a Cproperty cast.
-					temp = dynamic_cast<CProperty*>(Board[currentPlayersTurn->currentSquare]);
+					temp = dynamic_cast<CProperty*>(Board[currentPlayersTurn->currentSquare].get());
 
-					if (temp->getOwner() == currentPlayersTurn && temp->streetOwned == false) // Check if the owner is the current player.
+					if (temp->getOwner() == currentPlayersTurn.get() && temp->streetOwned == false) // Check if the owner is the current player.
 					{
 						if (temp->numProperties == 2) //Check if its a 2 house street
 						{
 							//A temp to check behind the player if it is the property.
 							CProperty* tempTwo = new CProperty;
-							tempTwo = static_cast<CProperty*>(Board[currentPlayersTurn->currentSquare - 1]);
+							tempTwo = static_cast<CProperty*>(Board[currentPlayersTurn->currentSquare - 1].get());
 
 							if (tempTwo->getType() != 1) //Checks if the square behind isnt a property.
 							{
 								//If the square behind isnt a property then the temp moves infront to get the property details.
-								tempTwo = static_cast<CProperty*>(Board[currentPlayersTurn->currentSquare + 1]);
+								tempTwo = static_cast<CProperty*>(Board[currentPlayersTurn->currentSquare + 1].get());
 							}
 							
 							if (tempTwo->getOwner() == temp->getOwner()) //Checks both property squares for owner being the same.
@@ -206,18 +208,18 @@ void monopolyManager::playGame()
 						else if (temp->numProperties == 3) //If the property is on a 3 property street.
 						{
 							CProperty* tempInFront = new CProperty; //Holds the square ahead of the player.
-							tempInFront = static_cast<CProperty*>(Board[currentPlayersTurn->currentSquare + 1]);
+							tempInFront = static_cast<CProperty*>(Board[currentPlayersTurn->currentSquare + 1].get());
 
 							CProperty* tempBehind = new CProperty;  //Holds the square behind the player.
-							tempBehind = static_cast<CProperty*>(Board[currentPlayersTurn->currentSquare - 1]);
+							tempBehind = static_cast<CProperty*>(Board[currentPlayersTurn->currentSquare - 1].get());
 
 							if (tempInFront->getType() != 1) //Checks if the tile infront of the player is not a property.
 							{
-								tempInFront = static_cast<CProperty*>(Board[currentPlayersTurn->currentSquare - 2]); //Moves the temp to the back of the street.
+								tempInFront = static_cast<CProperty*>(Board[currentPlayersTurn->currentSquare - 2].get()); //Moves the temp to the back of the street.
 							}
 							else if (tempBehind->getType() != 1) //Checks if the tile behind the player is not a property.
 							{
-								tempBehind = static_cast<CProperty*>(Board[currentPlayersTurn->currentSquare + 2]);  //Moves the temp to the front of the street.
+								tempBehind = static_cast<CProperty*>(Board[currentPlayersTurn->currentSquare + 2].get());  //Moves the temp to the front of the street.
 							}
 
 							if (temp->getOwner() == tempInFront->getOwner() && temp->getOwner() == tempBehind->getOwner()) //Compares owners of all three properties.
@@ -239,11 +241,13 @@ void monopolyManager::playGame()
 				{
 					if (currentPlayersTurn == dog) //Alternates turns between the two players.
 					{
-						currentPlayersTurn = car;
+						currentPlayersTurn.release();
+						currentPlayersTurn.reset(car.get());
 					}
 					else
 					{
-						currentPlayersTurn = dog;
+						currentPlayersTurn.release();
+						currentPlayersTurn.reset(dog.get());
 					}
 				}
 			}
@@ -255,6 +259,7 @@ void monopolyManager::playGame()
 		}
 	}
 
+	currentPlayersTurn.release();
 	cout << endl;
 	system("Pause");
 	//****************************************************** GAME  END ******************************************************//
@@ -272,7 +277,7 @@ bool ComparePrice(CProperty*& CostOne, CProperty*& CostTwo) //Sorts the vectors 
 	return CostOne->getCost() < CostTwo->getCost();
 }
 
-void mortgage(CPlayer*& currentPlayer, bool& gameLost, vector<CBase*>& Board) //Mortgages and buys back properties when required.
+void mortgage(unique_ptr<CPlayer>& currentPlayer, bool& gameLost, vector<unique_ptr<CBase>>& Board) //Mortgages and buys back properties when required.
 {
 	while (currentPlayer->balance < 0) //Check the players balance being below 0
 	{
@@ -289,7 +294,7 @@ void mortgage(CPlayer*& currentPlayer, bool& gameLost, vector<CBase*>& Board) //
 					if (currentPlayer->ownedProperties[i]->getName() == Board[j]->getName())
 					{
 						CProperty* temp = new CProperty;
-						temp = dynamic_cast<CProperty*>(Board[j]);
+						temp = dynamic_cast<CProperty*>(Board[j].get());
 
 						temp->mortgaged = currentPlayer->ownedProperties[i]->mortgaged;//Changes the main boards mortgage values.
 					}

@@ -1,7 +1,7 @@
 #include "LoadFile.h"
 #include "Classes.h"
 
-void loadFile(int& seed, vector<CBase*>& board) //File loading function for the seed and main game map.
+void loadFile(int& seed, board& Board) //File loading function for the seed and main game map.
 {
 	ifstream SeedFile("seed.txt");
 
@@ -31,7 +31,7 @@ void loadFile(int& seed, vector<CBase*>& board) //File loading function for the 
 			getline(infile, group);
 			
 			//Creates a temp of the current type and sets their respected class variables.
-			CProperty* property(new CProperty);
+			unique_ptr<CProperty> property(new CProperty);
 			property->setName(fullName + " " + secondName);
 			property->setCost(stoi(Cost));
 			property->setType(stoi(type));
@@ -46,7 +46,7 @@ void loadFile(int& seed, vector<CBase*>& board) //File loading function for the 
 				property->numProperties = 3;
 			}
 
-			board.push_back(property); //Pushes back the tile on the board vector.
+			Board.push_back(move(property)); //Pushes back the tile on the board vector.
 		}
 		//*************** Go tile loading ***************//
 		else if (stoi(type) == 2)
@@ -55,11 +55,11 @@ void loadFile(int& seed, vector<CBase*>& board) //File loading function for the 
 			getline(infile, fullName);
 
 			//Creates a temp of the current type and sets their respected class variables.
-			CGo* go(new CGo);
+			unique_ptr<CGo> go(new CGo);
 			go->setName(fullName);
 			go->setType(stoi(type));
 
-			board.push_back(go); //Pushes back the tile on the board vector.
+			Board.push_back(move(go)); //Pushes back the tile on the board vector.
 		}
 		//*************** airport loading ***************//
 		else if (stoi(type) == 3)
@@ -69,11 +69,11 @@ void loadFile(int& seed, vector<CBase*>& board) //File loading function for the 
 			getline(infile, secondName);
 
 			//Creates a temp of the current type and sets their respected class variables.
-			CAirport* airport(new CAirport);
+			unique_ptr<CAirport> airport(new CAirport);
 			airport->setName(fullName + " " + secondName);
 			airport->setType(stoi(type));
 
-			board.push_back(airport); //Pushes back the tile on the board vector.
+			Board.push_back(move(airport)); //Pushes back the tile on the board vector.
 		}
 		//*************** bonus loading ***************//
 		else if (stoi(type) == 4)
@@ -82,11 +82,11 @@ void loadFile(int& seed, vector<CBase*>& board) //File loading function for the 
 			getline(infile, fullName);
 
 			//Creates a temp of the current type and sets their respected class variables.
-			CBonus* Bonus(new CBonus);
+			unique_ptr<CBonus> Bonus(new CBonus);
 			Bonus->setName(fullName);
 			Bonus->setType(stoi(type));
 
-			board.push_back(Bonus); //Pushes back the tile on the board vector.
+			Board.push_back(move(Bonus)); //Pushes back the tile on the board vector.
 		}
 		//*************** penalty loading ***************//
 		else if (stoi(type) == 5)
@@ -95,11 +95,11 @@ void loadFile(int& seed, vector<CBase*>& board) //File loading function for the 
 			getline(infile, fullName);
 
 			//Creates a temp of the current type and sets their respected class variables.
-			CPenalty* Penalty(new CPenalty);
+			unique_ptr<CPenalty> Penalty(new CPenalty);
 			Penalty->setName(fullName);
 			Penalty->setType(stoi(type));
 
-			board.push_back(Penalty); //Pushes back the tile on the board vector.
+			Board.push_back(move(Penalty)); //Pushes back the tile on the board vector.
 		}
 		//*************** jail loading ***************//
 		else if (stoi(type) == 6)
@@ -108,11 +108,11 @@ void loadFile(int& seed, vector<CBase*>& board) //File loading function for the 
 			getline(infile, fullName);
 
 			//Creates a temp of the current type and sets their respected class variables.
-			CJail* Jail(new CJail);
+			unique_ptr<CJail> Jail(new CJail);
 			Jail->setName(fullName);
 			Jail->setType(stoi(type));
 
-			board.push_back(Jail); //Pushes back the tile on the board vector.
+			Board.push_back(move(Jail)); //Pushes back the tile on the board vector.
 		}
 		//*************** goJail loading ***************//
 		else if (stoi(type) == 7)
@@ -121,11 +121,11 @@ void loadFile(int& seed, vector<CBase*>& board) //File loading function for the 
 			getline(infile, fullName);
 
 			//Creates a temp of the current type and sets their respected class variables.
-			CGoToJail* goToJail(new CGoToJail);
+			unique_ptr<CGoToJail> goToJail(new CGoToJail);
 			goToJail->setName(fullName);
 			goToJail->setType(stoi(type));
 
-			board.push_back(goToJail); //Pushes back the tile on the board vector.
+			Board.push_back(move(goToJail)); //Pushes back the tile on the board vector.
 		}
 		//*************** parking loading ***************//
 		else if (stoi(type) == 8)
@@ -134,11 +134,11 @@ void loadFile(int& seed, vector<CBase*>& board) //File loading function for the 
 			getline(infile, fullName);
 
 			//Creates a temp of the current type and sets their respected class variables.
-			CFreeParking* freeParking(new CFreeParking);
+			unique_ptr<CFreeParking> freeParking(new CFreeParking);
 			freeParking->setName(fullName);
 			freeParking->setType(stoi(type));
 
-			board.push_back(freeParking); //Pushes back the tile on the board vector.
+			Board.push_back(move(freeParking)); //Pushes back the tile on the board vector.
 		}
 	}
 }
