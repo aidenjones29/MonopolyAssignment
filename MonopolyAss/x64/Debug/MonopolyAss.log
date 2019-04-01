@@ -1,8 +1,3 @@
-﻿  Classes.cpp
+﻿  Main.cpp
 d:\ajones45\documents\github\monopolyass\monopolyass\classes.h(13): warning C4309: 'initializing': truncation of constant value
-  LoadFile.cpp
-d:\ajones45\documents\github\monopolyass\monopolyass\classes.h(13): warning C4309: 'initializing': truncation of constant value
-  Main.cpp
-d:\ajones45\documents\github\monopolyass\monopolyass\classes.h(13): warning C4309: 'initializing': truncation of constant value
-  Generating Code...
   MonopolyAss.vcxproj -> D:\AJones45\Documents\GitHub\MonopolyAss\x64\Debug\MonopolyAss.exe

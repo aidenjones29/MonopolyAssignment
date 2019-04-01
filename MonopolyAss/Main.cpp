@@ -3,6 +3,6 @@
 
 int main()
 {
-	monopolyManager newGame; //Manager class to call the game :)
+	monopolyManager newGame; //Manager class to call the game (*w*)
 	newGame.playGame();
 }

@@ -152,12 +152,12 @@ void monopolyManager::playGame()
 
 	//********** GAME LOOP START **********//
 
-	for (int gameRound = 0; gameRound < numRounds; gameRound++)
+	for (int gameRound = 0; gameRound < NUM_ROUNDS; gameRound++)
 	{
 		if (gameLost != true) //Checks if any of the players have gone bankrupt.
 		{
 			cout << endl;
-			for (int playerCount = 0; playerCount < numPlayers; playerCount++)
+			for (int playerCount = 0; playerCount < NUM_PLAYERS; playerCount++)
 			{
 				diceRoll = RandomGen(); //Gets the dice roll from the random generator.
 
@@ -165,9 +165,9 @@ void monopolyManager::playGame()
 
 				currentPlayersTurn->currentSquare += diceRoll;    //Adds the dice roll to the players square.
 
-				if (currentPlayersTurn->currentSquare >= mapSize) //Checks if the player has gone past the end of the board.
+				if (currentPlayersTurn->currentSquare >= MAP_SIZE) //Checks if the player has gone past the end of the board.
 				{
-					currentPlayersTurn->currentSquare -= mapSize; //Sets the player to the start of the board + how many they went over.
+					currentPlayersTurn->currentSquare -= MAP_SIZE; //Sets the player to the start of the board + how many they went over.
 					currentPlayersTurn->balance += 200;           //Gives the player 200 for passing go.
 					cout << currentPlayersTurn->PlayerName << " passes GO and collects " << POUND << "200" << endl;
 				}

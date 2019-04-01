@@ -19,7 +19,7 @@ void loadFile(int& seed, board& Board) //File loading function for the seed and 
 		string secondName = "";
 
 		getline(infile, type, ' '); //Gets the first char of the file which is the type.
-
+		
 		//*************** Property loading ***************//
 		if (stoi(type) == 1) 
 		{

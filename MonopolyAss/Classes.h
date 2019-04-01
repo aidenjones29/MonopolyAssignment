@@ -11,9 +11,9 @@ using namespace std;
 
 
 const char POUND = 156; //Pound char for output text
-const int numRounds = 20;
-const int numPlayers = 2;
-const int mapSize = 26;
+const int NUM_ROUNDS = 20;
+const int NUM_PLAYERS = 2;
+const int MAP_SIZE = 26;
 
 enum character { EDogPlayer, ECarPlayer };
 
